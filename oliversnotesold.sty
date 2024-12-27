@@ -1,0 +1,274 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{oliversnotes}[2023/09/18 Olivers Notes]
+
+%% Symbols and technical support
+\RequirePackage{amsfonts} % Symbols
+\RequirePackage{amsmath} % Advanced maths tools
+% http://www.ams.org/arc/tex/amsmath/amsldoc.pdf
+\RequirePackage{physics} % Physics formatting
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/physics/physics.pdf
+\RequirePackage[version=4]{mhchem} % Chemistry formatting
+% https://mirror.apps.cam.ac.uk/pub/tex-archive/macros/latex/contrib/mhchem/mhchem.pdf
+\RequirePackage{siunitx} % SI units formatting
+% https://mirror.apps.cam.ac.uk/pub/tex-archive/macros/latex/contrib/siunitx/siunitx.pdf
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
+\RequirePackage{upgreek} % Non-italic greek characters
+
+%% Table of contents
+\RequirePackage{hyperref}
+\RequirePackage{tocloft} % Table of contents tools
+\newcommand{\listequationsname}{List of Equations}
+\newlistof{equations}{equ}{\listequationsname}
+\newcommand{\addeqntocontents}[1]{\addcontentsline{equ}{equations}{~~~~~~\protect\numberline{\theequation}~~~#1}\par}
+
+%% Tabular support
+\RequirePackage{tabu}
+% https://mirror.apps.cam.ac.uk/pub/tex-archive/macros/latex/contrib/tabu/tabu.pdf
+
+%% Image support
+\RequirePackage{graphicx}
+\newcommand{\myfig}[2][0.8]
+{
+    \begin{figure*}[h]
+    \centering
+    \includegraphics[width=#1\textwidth]{#2}
+    \end{figure*}
+}
+\newcommand{\numfig}[4][0.8]
+{
+    \begin{figure}[h]
+    \caption{#4}
+    \centering
+    \includegraphics[width=#1\textwidth]{#2}
+    \label{#3}
+    \end{figure}
+}
+
+%% Formatting
+\RequirePackage[a4paper, top=0.5in,bottom=0.2in, left=0.5in, right=0.5in, footskip=0.3in, includefoot]{geometry} % Set page size and margins
+\RequirePackage[parfill]{parskip} % Disable paragraph indent
+\RequirePackage{multicol} % Column support
+\RequirePackage{makecell} % Table support
+\RequirePackage[T1]{fontenc}
+\RequirePackage{pxfonts} % Font
+\RequirePackage{titlesec} % Format chapter headings
+    \titleformat{\chapter}{}{}{0em}{\bf\LARGE\thechapter.~}
+\RequirePackage[x11names]{xcolor} % Add more colours
+% https://tex.stackexchange.com/questions/659029/colour-packages-beyond-xcolor
+
+%% Graphs
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+%% Shortcuts
+\newcommand{\newpara}{\\~\\}
+\newcommand{\ts}{\textsuperscript}
+
+%% General Maths
+\DeclareMathOperator\erf{erf}
+\newcommand{\itext}[1]{\intertext{#1}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\inv}{^{-1}}
+\newcommand{\uvec}[3]{#1\vu{i} + #2\vu{j} + #3\vu{k}}
+\newcommand{\total}{_{\text{total}}}
+\newcommand{\subin}{_{\text{in}}}
+\newcommand{\subout}{_{\text{out}}}
+\newcommand{\submin}{_{\text{min}}}
+\newcommand{\submax}{_{\text{max}}}
+\newcommand{\laplace}[1]{\mathcal{L}\left\{#1\right\}}
+\newcommand{\ilaplace}[1]{\mathcal{L}^{-1}\left\{#1\right\}}
+\newcommand{\evalbar}[1]{\left. #1 \right|}
+\newcommand{\bbar}[1]{\bar{\bar{#1}}}
+
+% Sign Convention
+\newcommand{\uppositive}{+ve\uparrow}
+\newcommand{\downpositive}{+ve\downarrow}
+\newcommand{\leftpositive}{+ve\leftarrow}
+\newcommand{\rightpositive}{+ve\rightarrow}
+\newcommand{\cwpositive}{+ve\circlearrowright}
+\newcommand{\ccwpositive}{+ve\circlearrowleft}
+
+% Vectors
+\newcommand{\twovector}[2]{#1\vu{i} + #2\vu{j}}
+\newcommand{\threevector}[3]{#1\vu{i} + #2\vu{j} + #3\vu{k}}
+
+% Trigonometry
+\newcommand{\sint}{\sin(\theta)}
+\newcommand{\cost}{\cos(\theta)}
+\newcommand{\tant}{\tan(\theta)}
+\newcommand{\csct}{\csc(\theta)}
+\newcommand{\sect}{\sec(\theta)}
+\newcommand{\cott}{\cot(\theta)}
+\newcommand{\hpi}{\frac{\pi}{2}}
+
+% Mechanics
+\newcommand{\stress}[1][]{\sigma_{\text{#1}}}
+\newcommand{\strain}[1][]{\varepsilon_{\text{#1}}}
+
+% Thermodynamics
+\newcommand{\enthalpy}[1][]{\Delta_{\text{#1}} H^\circ}
+\newcommand{\entropy}[1][]{\Delta_{\text{#1}} S^\circ}
+\newcommand{\gibbs}[1][]{\Delta_{\text{#1}} G^\circ}
+\newcommand{\internale}[1][]{\Delta_{\text{#1}} U^\circ}
+\newcommand{\enthalpyx}[1][]{\Delta_{\text{#1}} H}
+\newcommand{\entropyx}[1][]{\Delta_{\text{#1}} S}
+\newcommand{\gibbsx}[1][]{\Delta_{\text{#1}} G}
+\newcommand{\internalex}[1][]{\Delta_{\text{#1}} U}
+\newcommand{\myenthalpy}[1]{$\enthalpy = #1 \kjmol$}
+
+% Electrochemistry
+\newcommand{\species}[1]{_{(\ce{#1})}}
+
+% Heat and Flow
+\newcommand{\patm}{P_{\text{ATM}}}
+\newcommand{\pabs}{P_{\text{ABS}}}
+\newcommand{\pgauge}{P_{\text{GAUGE}}}
+
+% Unit shortcuts
+\newcommand{\kjmol}{\unit{kJ.mol^{-1}}}
+\newcommand{\jkmol}{\unit{J.K^{-1}.mol^{-1}}}
+\newcommand{\kjkmol}{\unit{kJ.K^{-1}.mol^{-1}}}
+\newcommand{\jkgk}{\unit{J.kg^{-1}.K^{-1}}}
+\newcommand{\wmk}{\unit{W.m^{-1}.K^{-1}}}
+
+% Text shortcuts
+\newcommand{\apf}{\text{APF}}
+
+%% Custom Environments
+% Environment formatting
+\RequirePackage{framed}
+    \newlength{\leftbarwidth}
+    \setlength{\leftbarwidth}{3pt}
+    \newlength{\leftbarsep}
+    \setlength{\leftbarsep}{10pt}
+    \newcommand*{\leftbarcolorcmd}{\color{leftbarcolor}}
+    \renewenvironment{leftbar}{
+        \def\FrameCommand{{\leftbarcolorcmd{\vrule width \leftbarwidth\relax\hspace{\leftbarsep}}}}
+        \MakeFramed{\advance\hsize -\width\FrameRestore}
+    }{\endMakeFramed}
+
+% Title
+\newcommand{\mytitle}[1]
+{
+    \large
+    \textbf{#1}
+    \normalsize 
+    \newline
+}
+% Code (Black)
+\newenvironment{black}
+{
+    \colorlet{leftbarcolor}{darkgray}
+    \definecolor{shadecolor}{named}{gray}
+    \begin{leftbar}  
+    \begin{shaded}
+}
+{
+    \end{shaded}
+    \end{leftbar}
+}
+
+% Standard (Ivory)
+\newenvironment{white}
+{
+    \colorlet{leftbarcolor}{Ivory3}
+    \definecolor{shadecolor}{named}{Ivory1}
+    \begin{leftbar}  
+    \begin{shaded}
+}
+{
+    \end{shaded}
+    \end{leftbar}
+}
+
+% Alert (Red)
+\newenvironment{red}
+{
+    \colorlet{leftbarcolor}{IndianRed3}
+    \definecolor{shadecolor}{named}{RosyBrown1}
+    \begin{leftbar}  
+    \begin{shaded}
+}
+{
+    \end{shaded}
+    \end{leftbar}
+}
+
+% Example (Orange)
+\newenvironment{orange}
+{
+    \colorlet{leftbarcolor}{DarkOrange1}
+    \definecolor{shadecolor}{named}{PeachPuff1}
+    \begin{leftbar}
+    \begin{shaded}
+}
+{
+    \end{shaded}
+    \end{leftbar}
+}
+
+% Process (Yellow)
+\newenvironment{yellow}
+{
+    \colorlet{leftbarcolor}{DarkGoldenrod1}
+    \definecolor{shadecolor}{named}{LemonChiffon1}
+    \begin{leftbar}  
+    \begin{shaded}
+}
+{
+    \end{shaded}
+    \end{leftbar}
+}
+
+% Working (Green)
+\newenvironment{green}
+{
+    \colorlet{leftbarcolor}{Green4}
+    \definecolor{shadecolor}{named}{Honeydew2}
+    \begin{leftbar}  
+    \begin{shaded}
+}
+{
+    \end{shaded}
+    \end{leftbar}
+}
+
+% Equation/Law (Blue)
+\newenvironment{blue}
+{
+    \colorlet{leftbarcolor}{RoyalBlue4}
+    \definecolor{shadecolor}{named}{LightSteelBlue1}
+    \begin{leftbar}  
+    \begin{shaded}
+}
+{
+    \end{shaded}
+    \end{leftbar}
+}
+
+% Definition (Purple)
+\newenvironment{purple}
+{
+    \colorlet{leftbarcolor}{MediumOrchid3}
+    \definecolor{shadecolor}{named}{Thistle1}
+    \begin{leftbar}  
+    \begin{shaded}
+}
+{
+    \end{shaded}
+    \end{leftbar}
+}
+
+% Data (Pink)
+\newenvironment{pink}
+{
+    \colorlet{leftbarcolor}{PaleVioletRed1}
+    \definecolor{shadecolor}{named}{MistyRose1}
+    \begin{leftbar}  
+    \begin{shaded}
+}
+{
+    \end{shaded}
+    \end{leftbar}
+}
