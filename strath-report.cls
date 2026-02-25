@@ -65,7 +65,7 @@
     \vspace{2cm}
     {\Large\@classcode\unskip\strut\par}
     \vspace{2cm}
-    Student Numbers:~~\@studentnumber\unskip\strut\par
+    Student Number:~~\@studentnumber\unskip\strut\par
     \vspace{1cm}
     Word Count:~~\@wordcount\unskip\strut\par
     \vfill
