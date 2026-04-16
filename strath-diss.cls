@@ -2,18 +2,19 @@
 \ProvidesClass{strath-diss}[2025/08/25 University of Strathclyde Dissertation]
 
 % Document settings
-\LoadClass[a4paper,oneside,12pt]{book}
+\LoadClass[a4paper,oneside,12pt]{report}
 \RequirePackage[utf8]{inputenc}
-\RequirePackage[left=2.5cm, right=2.5cm, top=2cm, bottom=4cm,
+\RequirePackage[left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm,
   includehead,includefoot, headheight=15pt]{geometry}
 
 % Symbols and fonts
 \RequirePackage[T1]{fontenc}
-\RequirePackage{helvet}
-\renewcommand{\familydefault}{\sfdefault}
+% \RequirePackage{helvet}
+% \renewcommand{\familydefault}{\sfdefault}
 \RequirePackage{amsfonts}
 \RequirePackage{amsbsy}
 \RequirePackage{amsmath}
+\RequirePackage{amssymb}
 \RequirePackage{siunitx}
 \RequirePackage[super]{nth}
 
@@ -29,8 +30,20 @@
 
 % Formatting
 \RequirePackage{setspace}
-\setstretch{1.5}
+\setstretch{1.2}
 \RequirePackage{enumitem}
+\setlist{nolistsep}
+
+\RequirePackage[skip=0.5\baselineskip]{parskip}
+
+% Remove 'Chapter N' text
+% https://tex.stackexchange.com/questions/120740/how-do-i-remove-chapter-n-from-the-chapter-titles-of-a-book
+\RequirePackage[pagestyles]{titlesec}
+\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
+\titlespacing{\chapter}{0pt}{*0}{*0}
+\newpagestyle{mystyle}
+{\sethead[\thepage][][\chaptertitle]{}{}{\thepage}}
+\pagestyle{mystyle}
 
 % Nomenclature
 \RequirePackage{nomencl}
@@ -39,9 +52,9 @@
 \RequirePackage{etoolbox}
 \renewcommand\nomgroup[1]{%
   \item[\bfseries
-  \ifstrequal{#1}{C}{Constants}{%
-  \ifstrequal{#1}{S}{Variables}{}}%
-]}
+              \ifstrequal{#1}{C}{Constants}{%
+                \ifstrequal{#1}{S}{Variables}{}}%
+        ]}
 
 % Headers and footers
 \RequirePackage{fancyhdr}
@@ -54,9 +67,9 @@
   \pagestyle{empty}
   \noindent
   \begin{figure}
-      \begin{tikzpicture}[remember picture, overlay]
-          \node[anchor=north west, align=left, inner sep=0] at (current page.north west){\includegraphics[width=\paperwidth, keepaspectratio]{Strathclyde MAE Header.png}};
-      \end{tikzpicture}
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[anchor=north west, align=left, inner sep=0] at (current page.north west){\includegraphics[width=\paperwidth, keepaspectratio]{Strathclyde MAE Header.png}};
+    \end{tikzpicture}
   \end{figure}
 }
 
