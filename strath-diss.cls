@@ -2,13 +2,15 @@
 \ProvidesClass{strath-diss}[2025/08/25 University of Strathclyde Dissertation]
 
 % Document settings
-\LoadClass[a4paper,oneside,12pt]{report}
+\LoadClass[a4paper,oneside,12pt]{book}
 \RequirePackage[utf8]{inputenc}
-\RequirePackage[left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm,
-  includehead,includefoot, headheight=15pt]{geometry}
+\RequirePackage[left=2cm, right=2cm, top=1.5cm, bottom=1.5cm,
+    includehead,includefoot, headheight=15pt]{geometry}
 
 % Symbols and fonts
 \RequirePackage[T1]{fontenc}
+\RequirePackage{fontspec}
+\setmainfont{Arial}
 % \RequirePackage{helvet}
 % \renewcommand{\familydefault}{\sfdefault}
 \RequirePackage{amsfonts}
@@ -38,39 +40,40 @@
 
 % Remove 'Chapter N' text
 % https://tex.stackexchange.com/questions/120740/how-do-i-remove-chapter-n-from-the-chapter-titles-of-a-book
-\RequirePackage[pagestyles]{titlesec}
-\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
-\titlespacing{\chapter}{0pt}{*0}{*0}
-\newpagestyle{mystyle}
-{\sethead[\thepage][][\chaptertitle]{}{}{\thepage}}
-\pagestyle{mystyle}
+\RequirePackage[explicit, compact]{titlesec}
+\titleformat{\chapter}[block]
+{\bfseries\huge}{\filright\huge\thechapter.}{1ex}{\huge\filright #1}
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt}
+
 
 % Nomenclature
 \RequirePackage{nomencl}
 \makenomenclature
 
-\RequirePackage{etoolbox}
-\renewcommand\nomgroup[1]{%
-  \item[\bfseries
-              \ifstrequal{#1}{C}{Constants}{%
-                \ifstrequal{#1}{S}{Variables}{}}%
-        ]}
-
 % Headers and footers
 \RequirePackage{fancyhdr}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0pt}
-\fancyhead[L]{\nouppercase{\leftmark}}
-\pagestyle{fancy}
+
+\fancypagestyle{fancy}{
+    \fancyhf{}
+    \fancyhead[L]{\nouppercase{\leftmark}}
+    \fancyhead[R]{\hyperlink{TOC}{Contents}}
+    \fancyfoot[C]{\thepage}
+}
+
+\fancypagestyle{frontmatter}{%
+    \fancyhf{}
+    \fancyhead[L]{\nouppercase{\leftmark}}
+    \fancyfoot[C]{\thepage}
+}
 
 \newcommand{\strathheader}{%
-  \pagestyle{empty}
-  \noindent
-  \begin{figure}
-    \begin{tikzpicture}[remember picture, overlay]
-      \node[anchor=north west, align=left, inner sep=0] at (current page.north west){\includegraphics[width=\paperwidth, keepaspectratio]{Strathclyde MAE Header.png}};
-    \end{tikzpicture}
-  \end{figure}
+    \pagestyle{empty}
+    \noindent
+    \begin{figure}
+        \begin{tikzpicture}[remember picture, overlay]
+            \node[anchor=north west, align=left, inner sep=0] at (current page.north west){\includegraphics[width=\paperwidth, keepaspectratio]{Strathclyde MAE Header.png}};
+        \end{tikzpicture}
+    \end{figure}
 }
 
 % Title page
@@ -78,27 +81,26 @@
 \newcommand*{\project}[1]{\gdef\@project{#1}}
 \newcommand*{\course}[1]{\gdef\@course{#1}}
 \newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
-\newcommand*{\@degreedate}{\monthname[\the\month]~\the\year}
 \newcommand*{\wordcount}[1]{\gdef\@wordcount{#1}}
 
 \renewcommand*{\maketitle}{%
-  \begin{titlepage}
-    \strathheader
-    \vfill
-    \centering
-    {\huge\bfseries\@title\unskip\strut\par}
-    \vspace{2cm}
-    Author:~~\@author\unskip\strut\par
-    \vspace{1cm}
-    Student Number:~~\@studentnumber\unskip\strut\par
-    \vspace{1cm}
-    Supervisor:~~\@supervisor\unskip\strut\par
-    \vspace{1cm}
-    Word Count:~~\@wordcount\unskip\strut\par
-    \vspace{2cm}
-    A thesis submitted in partial fulfilment for the requirement of degree \\
-    of \@course\unskip\strut\par
-    \vfill
-    {\@degreedate\par}
-  \end{titlepage}
+    \begin{titlepage}
+        \strathheader
+        \vfill
+        \centering
+        {\Huge\bfseries\@title\unskip\strut\par}
+        \vspace{2cm}
+        {\Large Author:~~\@author\unskip\strut\par}
+        \vspace{2cm}
+        Student Number:~~\@studentnumber\unskip\strut\par
+        \vspace{1cm}
+        Supervisor:~~\@supervisor\unskip\strut\par
+        \vspace{1cm}
+        Word Count:~~\@wordcount\unskip\strut\par
+        \vspace{2cm}
+        A thesis submitted in partial fulfilment for the requirement of degree \\
+        of \@course\unskip\strut\par
+        \vfill
+        {\monthname[\the\month]~\the\year\par}
+    \end{titlepage}
 }
