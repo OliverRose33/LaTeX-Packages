@@ -9,10 +9,10 @@
 
 % Symbols and fonts
 \RequirePackage[T1]{fontenc}
-\RequirePackage{fontspec}
-\setmainfont{Arial}
-% \RequirePackage{helvet}
-% \renewcommand{\familydefault}{\sfdefault}
+% \RequirePackage{fontspec}
+% \setmainfont{Arial}
+\RequirePackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
 \RequirePackage{amsfonts}
 \RequirePackage{amsbsy}
 \RequirePackage{amsmath}
@@ -45,6 +45,18 @@
 {\bfseries\huge}{\filright\huge\thechapter.}{1ex}{\huge\filright #1}
 \titlespacing*{\chapter}{0pt}{-30pt}{20pt}
 
+
+
+% Remove hyphenation of words
+% https://stackoverflow.com/a/65156105
+\tolerance=9999
+\emergencystretch=10pt
+\hyphenpenalty=10000
+\exhyphenpenalty=100
+
+
+\RequirePackage{etoolbox}
+\AtBeginEnvironment{thebibliography}{\interlinepenalty=10000}
 
 % Nomenclature
 \RequirePackage{nomencl}

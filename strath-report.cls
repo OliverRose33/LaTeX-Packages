@@ -21,6 +21,8 @@
 % \RequirePackage{siunitx}
 \RequirePackage[super]{nth}
 
+
+
 % Links and references
 \RequirePackage{hyperref}
 \RequirePackage{caption}
@@ -43,9 +45,9 @@
   \pagestyle{empty}
   \noindent
   \begin{figure}
-      \begin{tikzpicture}[remember picture, overlay]
-          \node[anchor=north west, align=left, inner sep=0] at (current page.north west){\includegraphics[width=\paperwidth, keepaspectratio]{Strathclyde MAE Header.png}};
-      \end{tikzpicture}
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[anchor=north west, align=left, inner sep=0] at (current page.north west){\includegraphics[width=\paperwidth, keepaspectratio]{Strathclyde MAE Header.png}};
+    \end{tikzpicture}
   \end{figure}
 }
 
