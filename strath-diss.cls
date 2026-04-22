@@ -102,7 +102,7 @@
         \centering
         {\Huge\bfseries\@title\unskip\strut\par}
         \vspace{2cm}
-        {\Large Author:~~\@author\unskip\strut\par}
+        {\Large\bfseries\@author\unskip\strut\par}
         \vspace{2cm}
         Student Number:~~\@studentnumber\unskip\strut\par
         \vspace{1cm}
